@@ -20,3 +20,5 @@ Route::get('/', ['as'=>'home','uses'=>'AppController@index']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/mensajes', 'HomeController@index')->name('home');
