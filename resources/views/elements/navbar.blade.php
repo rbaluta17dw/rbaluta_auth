@@ -1,8 +1,8 @@
 
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary id="mainNavbar">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" id="mainNavbar">
 
-    <a class="navbar-brand" href="#">AUTH</a>
+    <a class="navbar-brand" href="/">AUTH</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -28,18 +28,38 @@
                         <a class="dropdown-item active" href="#">Castellano</a>
                       </div>
                     </li>
+                    @if (Auth::user() != null)
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                    @else
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+                        <a class="nav-link" href="/login">
                             <i class="fa fa-sign-in"></i>
                             Login
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">
+                        <a class="nav-link" href="/register">
                             <i class="fa fa-user-plus"></i>
                             Registro
                         </a>
                     </li>
+                    @endif
             </ul>
         </div>
     </div>

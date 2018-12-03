@@ -16,3 +16,7 @@ Route::get('/welcome', function () {
 })->middleware('auth.basic');
 
 Route::get('/', ['as'=>'home','uses'=>'AppController@index']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
