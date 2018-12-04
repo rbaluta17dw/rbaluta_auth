@@ -16,4 +16,19 @@ class AppController extends Controller
   {
       return view('ud6');
   }
+
+  public function mensajes()
+  {
+      return view('mensajes');
+  }
+
+  public function enviarmensaje()
+  {
+      return view('mensaje');
+  }
+
+  public function perfil()
+  {
+      return view('perfil');
+  }
 }
