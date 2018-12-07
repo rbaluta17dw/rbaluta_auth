@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class AppController extends Controller
@@ -35,13 +36,13 @@ class AppController extends Controller
   public function cambio(Request $request)
   {
     $name = $request->input('name');
-    $user = App\User::where('name', $name);
+    $email = $request->input('email');
+    $passwordold = $request->input('passwordold');
+    $passwordnew = $request->input('passwordnew');
 
-    
+    $user = User::where('name', $name)
+              ->update(['name' => $name, 'email' => $email]);
 
-    $flight->name = 'New Flight Name';
-
-    $flight->save();
     return view('perfil');
   }
 }

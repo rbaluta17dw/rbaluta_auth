@@ -22,9 +22,9 @@
                     <input type="text" style="display: none;" name="email" placeholder="{{Auth::user()->email}}" value="{{Auth::user()->email}}">
                     <h3>Fecha de Registro:</h3><p>{{Auth::user()->created_at}}</p>
                     <h4 class="pass" style="display: none;">Antigua Contraseña</h4>
-                    <input type="password" style="display: none;" name="password" value="">
+                    <input type="password" style="display: none;" name="passwordold" value="">
                     <h4 class="pass" style="display: none;">Nueva Contraseña</h4>
-                    <input type="password" style="display: none;" name="password" value="">
+                    <input type="password" style="display: none;" name="passwordnew" value="">
                     <br>
                     <img id="config" src="" alt="">
                     <input type="submit" style="display: none;" name="cambio" value="cambiar">
