@@ -1,0 +1,14 @@
+#config{
+  float: right;
+  width: 25px;
+  height: 25px;
+  background: url('https://cdn4.iconfinder.com/data/icons/fidget-spinner-toy-1/100/spinner_fidget_toy-05-512.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: all 5s;
+}
+
+#config:hover{
+  cursor: pointer;
+  transform: rotate(9360deg);
+}
