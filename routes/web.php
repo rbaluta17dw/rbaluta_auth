@@ -16,9 +16,11 @@ Route::get('/welcome', function () {
 })->middleware('auth.basic');
 
 Route::get('/', ['as'=>'home','uses'=>'AppController@index']);
-
+Route::get('profile', function () {
+    // Only verified users may enter...
+})->middleware('verified');
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/mensajes', ['as'=>'mensajes','uses'=>'AppController@mensajes']);

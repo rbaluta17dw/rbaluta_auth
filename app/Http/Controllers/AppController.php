@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,15 @@ class AppController extends Controller
     $passwordold = $request->input('passwordold');
     $passwordnew = $request->input('passwordnew');
 
-    $user = User::where('name', $name)
-              ->update(['name' => $name, 'email' => $email]);
+    $user = User::find(Auth::user()->id);
 
-    return view('perfil');
+    $user->name = $name;
+    $user->email = $email;
+
+    $user->save();
+
+    Auth::login($user);
+
+    return view('ud6');
   }
 }
