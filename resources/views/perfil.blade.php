@@ -14,6 +14,8 @@
                         </div>
                         session ('status')
                     @endif
+                    @auth
+
                     <form class="" action="{{ route('cambio') }}" method="post">
                     @csrf
                     <h3>Usuario:</h3><p>{{Auth::user()->name}}</p>
@@ -29,6 +31,9 @@
                     <img id="config" src="" alt="">
                     <input type="submit" style="display: none;" name="cambio" value="cambiar">
                     </form>
+                    @else
+                    <h3>Ya no estas conectado por favor ingrese de nuvevo.</h3>
+                    @endauth
                 </div>
             </div>
         </div>

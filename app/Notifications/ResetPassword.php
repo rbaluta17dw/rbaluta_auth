@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class EmailVerify extends Notification
+class ResetPassword extends Notification
 {
     use Queueable;
 
@@ -38,13 +38,18 @@ class EmailVerify extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+     public function toMail($notifiable)
+     {
+         if (static::$toMailCallback) {
+             return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+         }
+
+         return (new MailMessage)
+             ->subject(Lang::getFromJson('Reiniciar la contrseña'))
+             ->line(Lang::getFromJson('Esta recibiendo esta notificacion por que se ha realizado una peticion de reinicio de contraseña para su cuenta.'))
+             ->action(Lang::getFromJson('Reiniciar contraseña'), url(config('app.url').route('password.reset', $this->token, false)))
+             ->line(Lang::getFromJson('Si usted no ha pedido el reinicio de contraseña no necesita hacer nada mas, aunque se recomienda el cambio de contraseña en caso de acceso no permitido a su cuenta.'));
+     }
 
     /**
      * Get the array representation of the notification.
