@@ -6,64 +6,72 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Lang;
 
 class verifyEmail extends Notification
 {
-  use Queueable;
+  /**
+   * The callback that should be used to build the mail message.
+   *
+   * @var \Closure|null
+   */
+  public static $toMailCallback;
 
   /**
-  * Create a new notification instance.
-  *
-  * @return void
-  */
-  public function __construct()
-  {
-    //
-  }
-
-  /**
-  * Get the notification's delivery channels.
-  *
-  * @param  mixed  $notifiable
-  * @return array
-  */
+   * Get the notification's channels.
+   *
+   * @param  mixed  $notifiable
+   * @return array|string
+   */
   public function via($notifiable)
   {
-    return ['mail'];
+      return ['mail'];
   }
 
   /**
-  * Get the mail representation of the notification.
-  *
-  * @param  mixed  $notifiable
-  * @return \Illuminate\Notifications\Messages\MailMessage
-  */
+   * Build the mail representation of the notification.
+   *
+   * @param  mixed  $notifiable
+   * @return \Illuminate\Notifications\Messages\MailMessage
+   */
   public function toMail($notifiable)
   {
-    if (static::$toMailCallback) {
-      return call_user_func(static::$toMailCallback, $notifiable);
-    }
+      if (static::$toMailCallback) {
+          return call_user_func(static::$toMailCallback, $notifiable);
+      }
 
-    return (new MailMessage)
-    ->subject(Lang::getFromJson('Verifique el correo electronico'))
-    ->line(Lang::getFromJson('Haga click en el boton de abajo para verificar el correo electronico.'))
-    ->action(
-      Lang::getFromJson('Verificar Email'),
-      $this->verificationUrl($notifiable)
-      )
-      ->line(Lang::getFromJson('Si usted no ha creado la cuenta no se necesita ninguna accion.'));
-    }
-
-    /**
-    * Get the array representation of the notification.
-    *
-    * @param  mixed  $notifiable
-    * @return array
-    */
-    public function toArray($notifiable)
-    {
-      return [
-        //
-      ];
-    }
+      return (new MailMessage)
+          ->subject(Lang::getFromJson('¡Verificame esta!'))
+          ->line(Lang::getFromJson('Pues... si le das al boton verifica.'))
+          ->action(
+              Lang::getFromJson('Verifica email'),
+              $this->verificationUrl($notifiable)
+          )
+          ->line(Lang::getFromJson('Si no fuiste tu el que creo la cuenta jaja salu2.'));
   }
+
+  /**
+   * Get the verification URL for the given notifiable.
+   *
+   * @param  mixed  $notifiable
+   * @return string
+   */
+  protected function verificationUrl($notifiable)
+  {
+      return URL::temporarySignedRoute(
+          'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+      );
+  }
+
+  /**
+   * Set a callback that should be used when building the notification mail message.
+   *
+   * @param  \Closure  $callback
+   * @return void
+   */
+  public static function toMailUsing($callback)
+  {
+      static::$toMailCallback = $callback;
+  }  }

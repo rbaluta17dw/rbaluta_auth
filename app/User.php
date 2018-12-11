@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -28,8 +30,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new Notifications\VerifyEmail);
-    }
+    public function sendPasswordResetNotification($token)
+     {
+         $this->notify(new ResetPasswordNotification($token));
+     }
+     public function sendEmailVerificationNotification()
+     {
+         $this->notify(new VerifyEmail);
+     }
 }

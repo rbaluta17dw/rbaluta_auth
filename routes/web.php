@@ -23,8 +23,8 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/mensajes', ['as'=>'mensajes','uses'=>'AppController@mensajes']);
-Route::get('/mensaje', ['as'=>'mensaje','uses'=>'AppController@enviarmensaje']);
+Route::get('/verMensajes', ['as'=>'mensaje','uses'=>'MessageController@show']);
+Route::get('/mensaje', ['as'=>'mensaje','uses'=>'MessageController@edit']);
 
 Route::get('/perfil', ['as'=>'perfil','uses'=>'AppController@perfil']);
 Route::post('/cambio', ['as'=>'cambio','uses'=>'AppController@cambio']);
