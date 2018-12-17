@@ -26,7 +26,7 @@
       @foreach ($messages_enviados as $m)
       <tr>
         <td>{{$m->id}}</td>
-        <td>{{$m->userto->user}}</td>
+        <td>{{$m->userto->name}}</td>
         <td>{{substr($m->message, 0, 30)}}{{strlen($m->message)>30?'...':''}}</td>
         <td>{{date("j/m/Y H:i:s", strtotime($m->datetime))}}</td>
         <td>

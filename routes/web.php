@@ -23,8 +23,13 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/verMensajes', ['as'=>'mensaje','uses'=>'MessageController@show']);
-Route::get('/mensaje', ['as'=>'mensaje','uses'=>'MessageController@edit']);
+Route::get('/messages', ['as'=>'messages.index','uses'=>'MessageController@index']);
+Route::get('/messages/create', ['as'=>'messages.create','uses'=>'MessageController@create']);
+Route::post('/messages', ['as'=>'messages.store','uses'=>'MessageController@store']);
+Route::get('/messages/{message}', ['as'=>'messages.show','uses'=>'MessageController@show']);
+Route::get('/messages/{message}/edit', ['as'=>'messages.edit','uses'=>'MessageController@edit']);
+Route::get('/messages/{message}', ['as'=>'messages.update','uses'=>'MessageController@update']);
+Route::get('/messages/{message}', ['as'=>'messages.detroy','uses'=>'MessageController@destroy']);
 
 Route::get('/perfil', ['as'=>'perfil','uses'=>'AppController@perfil']);
 Route::post('/cambio', ['as'=>'cambio','uses'=>'AppController@cambio']);

@@ -10,6 +10,10 @@ use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+
+    function messages(){
+      
+    }
     use Notifiable;
 
     /**

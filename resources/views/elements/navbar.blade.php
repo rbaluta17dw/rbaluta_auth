@@ -17,14 +17,14 @@
       </li>
       @auth
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('mensajes') }}">
+        <a class="nav-link" href="{{ route('messages.index') }}">
           Mensajes
         </a>
       </li>
       @endauth
       @auth
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('mensaje') }}">
+
           Enviar Mensaje
         </a>
       </li>
