@@ -36,6 +36,20 @@
         </a>
       </li>
       @endauth
+      @auth
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('music.index') }}">
+          Musica
+        </a>
+      </li>
+      @endauth
+      @auth
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('music.create') }}">
+          Añadir Musica
+        </a>
+      </li>
+      @endauth
     </ul>
     <ul class="navbar-nav navbar-right ">
       <li class="nav-item dropdown active">

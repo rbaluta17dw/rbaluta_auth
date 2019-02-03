@@ -29,7 +29,15 @@ Route::post('/messages', ['as'=>'messages.store','uses'=>'MessageController@stor
 Route::get('/messages/{message}', ['as'=>'messages.show','uses'=>'MessageController@show']);
 Route::get('/messages/{message}/edit', ['as'=>'messages.edit','uses'=>'MessageController@edit']);
 Route::get('/messages/{message}', ['as'=>'messages.update','uses'=>'MessageController@update']);
-Route::get('/messages/{message}', ['as'=>'messages.detroy','uses'=>'MessageController@destroy']);
+Route::get('/messages/{message}', ['as'=>'messages.destroy','uses'=>'MessageController@destroy']);
+
+Route::get('/music', ['as'=>'music.index','uses'=>'MusicController@index']);
+Route::get('/music/create', ['as'=>'music.create','uses'=>'MusicController@create']);
+Route::post('/music', ['as'=>'music.store','uses'=>'MusicController@store']);
+Route::get('/music/{music}', ['as'=>'music.show','uses'=>'MusicController@show']);
+Route::get('/music/{music}/edit', ['as'=>'music.edit','uses'=>'MusicController@edit']);
+Route::patch('/music/{music}', ['as'=>'music.update','uses'=>'MusicController@update']);
+Route::delete('/music/{music}', ['as'=>'music.destroy','uses'=>'MusicController@destroy']);
 
 Route::get('/perfil', ['as'=>'perfil','uses'=>'AppController@perfil']);
 Route::get('/usuario/tema', ['as'=>'usuario.tema','uses'=>'AppController@cambiarTema']);
