@@ -24,8 +24,15 @@
       @endauth
       @auth
       <li class="nav-item">
-
+        <a class="nav-link" href="{{ route('messages.create') }}">
           Enviar Mensaje
+        </a>
+      </li>
+      @endauth
+      @auth
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin') }}">
+          Admin
         </a>
       </li>
       @endauth

@@ -43,13 +43,13 @@ class verifyEmail extends Notification
       }
 
       return (new MailMessage)
-          ->subject(Lang::getFromJson('¡Verificame esta!'))
-          ->line(Lang::getFromJson('Pues... si le das al boton verifica.'))
+          ->subject(Lang::getFromJson('Verificaion de email'))
+          ->line(Lang::getFromJson('Este mensaje es un mensaje automatico para asegurar que usted ha solicitado el registro de una cuenta en nuestra plataforma.'))
           ->action(
-              Lang::getFromJson('Verifica email'),
+              Lang::getFromJson('Verificar email'),
               $this->verificationUrl($notifiable)
           )
-          ->line(Lang::getFromJson('Si no fuiste tu el que creo la cuenta jaja salu2.'));
+          ->line(Lang::getFromJson('Si usted no solicito el registro ignore este mensaje.'));
   }
 
   /**

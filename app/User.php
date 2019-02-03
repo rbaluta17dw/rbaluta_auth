@@ -11,35 +11,62 @@ use App\Notifications\VerifyEmail;
 class User extends Authenticatable implements MustVerifyEmail
 {
 
-    function messages(){
-      
+  public function roles(){
+    return $this->belongsToMany('App\Role');
+  }
+
+  public function messages(){
+    return $this->hasMany('App\Message');
+
+  }
+
+  public function hasAnyRole($roles){
+    if (is_array($roles)) {
+      foreach ($roles as $role) {
+        if ($this->hasRole($role)) {
+          return true;
+        }
+      }
+    }else{
+      if ($this->hasRole($roles)) {
+        return true;
+      }
     }
-    use Notifiable;
+    return false;
+  }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+  public function hasRole($role){
+      if ($this->roles()->where('name', $role)->first()) {
+        return true;
+      }
+      return false;
+  }
+  use Notifiable;
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  /**
+  * The attributes that are mass assignable.
+  *
+  * @var array
+  */
+  protected $fillable = [
+    'name', 'email', 'password',
+  ];
 
-    public function sendPasswordResetNotification($token)
-     {
-         $this->notify(new ResetPasswordNotification($token));
-     }
-     public function sendEmailVerificationNotification()
-     {
-         $this->notify(new VerifyEmail);
-     }
+  /**
+  * The attributes that should be hidden for arrays.
+  *
+  * @var array
+  */
+  protected $hidden = [
+    'password', 'remember_token',
+  ];
+
+  public function sendPasswordResetNotification($token)
+  {
+    $this->notify(new ResetPasswordNotification($token));
+  }
+  public function sendEmailVerificationNotification()
+  {
+    $this->notify(new VerifyEmail);
+  }
 }
